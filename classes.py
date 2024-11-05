@@ -36,4 +36,18 @@ class Block:
     def __str__(self) -> str:
         return f"Block Type: {self.block_type}, Position: {self.position}"
 
+class LazorGame:
+    def __init__(self, filename: str):
+        """
+        Initialize the Lazor board from a .bff file
+        
+        Args:
+            filename (str): Path to the .bff file
+        """
+        self.filename = filename
+        self.grid = []  # The game grid
+        self.blocks = {}  # Dictionary to store block requirements
+        self.block_objects = []  # List of block objects
+        self.lazor_objects = []  # List of lazor objects when reading the document
+        self.points = []  # List of points to intersect
 

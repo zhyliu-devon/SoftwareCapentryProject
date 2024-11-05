@@ -149,7 +149,17 @@ class LazorGame:
             if 'Target Points' not in [h.get_label() for h in legend_handles]:
                 legend_handles.append(point)
                 point.set_label('Target Points')
-            
+         # Plot initial lazor positions and directions
+        for lazor in self.lazor_objects:
+            x, y = lazor.position
+            vx, vy = lazor.direction
+            ax.plot(x / 2, rows - y / 2, 'go', markersize=10, label='Lazor Start')
+            ax.arrow(x / 2, rows - y / 2, vx / 4, -vy / 4, head_width=0.1, head_length=0.1, fc='g', ec='g')
+        
+        ax.set_xticks(range(cols + 1))
+        ax.set_yticks(range(rows + 1))
+        ax.grid(True)
+        ax.set_aspect('equal')
         # Add legend
         ax.legend(handles=legend_handles, loc='center left', bbox_to_anchor=(1, 0.5))
         

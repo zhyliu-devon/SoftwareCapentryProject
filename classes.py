@@ -130,4 +130,32 @@ class LazorGame:
             'C': {'color': 'yellow', 'label': 'Refract Block'}
         }
         
-       
+        # Create base grid
+        legend_handles = []
+        for i in range(rows):
+            for j in range(cols):
+                cell = self.grid[i][j]
+                style = block_styles[cell]
+                patch = plt.Rectangle((j, rows-1-i), 1, 1, 
+                                   facecolor=style['color'],
+                                   edgecolor='black')
+                ax.add_patch(patch)
+                
+                # Add to legend if not already added
+                if style['label'] not in [h.get_label() for h in legend_handles]:
+                    legend_handles.append(plt.Rectangle((0,0), 1, 1, 
+                                                     facecolor=style['color'],
+                                                     edgecolor='black',
+                                                     label=style['label']))
+
+        # Add legend
+        ax.legend(handles=legend_handles, loc='center left', bbox_to_anchor=(1, 0.5))
+        
+        plt.title(f'Lazor Board: {os.path.basename(self.filename)}')
+
+        if address is not None:
+            print("Saving the solution for :" , file_name)
+            plt.savefig(os.path.join(address, f"{file_name}_solution.png"))
+            plt.close()
+        else:
+            plt.show()

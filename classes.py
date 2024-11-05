@@ -136,18 +136,20 @@ class LazorGame:
             for j in range(cols):
                 cell = self.grid[i][j]
                 style = block_styles[cell]
-                patch = plt.Rectangle((j, rows-1-i), 1, 1, 
-                                   facecolor=style['color'],
-                                   edgecolor='black')
+                patch = plt.Rectangle((j, rows-1-i), 1, 1, facecolor=style['color'],edgecolor='black')
                 ax.add_patch(patch)
                 
                 # Add to legend if not already added
                 if style['label'] not in [h.get_label() for h in legend_handles]:
-                    legend_handles.append(plt.Rectangle((0,0), 1, 1, 
-                                                     facecolor=style['color'],
-                                                     edgecolor='black',
-                                                     label=style['label']))
-
+                    legend_handles.append(plt.Rectangle((0,0), 1, 1, facecolor=style['color'],edgecolor='black',label=style['label']))
+        
+        # Plot points to intersect
+        for x, y in self.points:
+            point = ax.plot(x/2, rows-y/2, 'ro', markersize=10)[0]
+            if 'Target Points' not in [h.get_label() for h in legend_handles]:
+                legend_handles.append(point)
+                point.set_label('Target Points')
+            
         # Add legend
         ax.legend(handles=legend_handles, loc='center left', bbox_to_anchor=(1, 0.5))
         

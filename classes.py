@@ -106,3 +106,28 @@ class LazorGame:
                 if cell in ['A', 'B', 'C']:
                     block = Block(block_type=cell, position=(x, y))
                     self.block_objects.append(block)
+
+    def visualize(self, address = None, file_name = None) -> None:
+        """
+        Visualize the Lazor board using matplotlib
+        Args
+            address : The adress to save the plot
+            file_name : The file_name to save the plot
+            if exist, then save
+        """            
+ 
+        fig, ax = plt.subplots(figsize=(10, 10))
+        
+        rows = len(self.grid)
+        cols = len(self.grid[0])
+        
+        # Define colors
+        block_styles = {
+            'x': {'color': 'gray', 'label': 'No Block Allowed'},
+            'o': {'color': 'white', 'label': 'Block Allowed'},
+            'A': {'color': 'blue', 'label': 'Reflect Block'},
+            'B': {'color': 'black', 'label': 'Opaque Block'},
+            'C': {'color': 'yellow', 'label': 'Refract Block'}
+        }
+        
+       

@@ -4,6 +4,9 @@
 **Instructors**: N. Thota, F. Shaikh  
 **Due Date**: November 6, 4:30 PM  
 
+## Group Member
+Zhaoyu Liu
+Jingxun Chen
 ## Project Overview
 
 We're making a program to solve levels in the "Lazors" game. It's a mobile game, and we need to write code to solve the levels using the board files provided.

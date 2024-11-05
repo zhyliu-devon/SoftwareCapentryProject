@@ -51,3 +51,49 @@ class LazorGame:
         self.lazor_objects = []  # List of lazor objects when reading the document
         self.points = []  # List of points to intersect
 
+    
+    def read_board(self) -> None:
+        """Read and parse the .bff file"""
+        try:
+            with open(self.filename, 'r') as f:
+                lines = [line.strip() for line in f.readlines()]
+                
+            reading_grid = False # Change to true after reading the GRID START
+            for line in lines:
+                # Skip empty lines and comments
+                if not line or line.startswith('#'):
+                    continue
+                    
+                if line == 'GRID START':
+                    reading_grid = True
+                    continue
+                elif line == 'GRID STOP':
+                    reading_grid = False
+                    continue
+                    
+                if reading_grid:
+                    # Add grid row, splitting by spaces
+                    self.grid.append(line.split()) #nested list
+                else:
+                    # Parse other elements when not readiong grid
+                    parts = line.split()
+                    if not parts:
+                        continue
+                        
+                    if parts[0] in ['A', 'B', 'C']: #blocks
+                        # Block specifications
+                        self.blocks[parts[0]] = int(parts[1])
+                    elif parts[0] == 'L': #lazers
+                        # Lazor specification
+                        lazor = Lazor(position=(int(parts[1]), int(parts[2])), direction=(int(parts[3]), int(parts[4])))
+                        self.lazor_objects.append(lazor)
+                    elif parts[0] == 'P':
+                        # Point specification: x, y
+                        self.points.append(tuple(map(int, parts[1:])))
+
+
+        except FileNotFoundError:
+            raise FileNotFoundError(f"Could not find file: {self.filename}")
+        except Exception as e:
+            raise ValueError(f"Error parsing board file: {str(e)}")
+    

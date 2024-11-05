@@ -50,7 +50,7 @@ class LazorGame:
         self.block_objects = []  # List of block objects
         self.lazor_objects = []  # List of lazor objects when reading the document
         self.points = []  # List of points to intersect
-
+        self.read_board()
     
     def read_board(self) -> None:
         """Read and parse the .bff file"""

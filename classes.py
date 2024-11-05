@@ -254,6 +254,39 @@ class LazorGame:
                     lazor.position = (new_x, new_y)
                 #print(lazor.position)
     
+    def add_block(self, block_type: str, position: Tuple[int, int]) -> bool:
+        """
+        Add a new block to the board.
+        
+        Args:
+            block_type (str): Type of block to add ('A', 'B', 'C').
+            position (Tuple[int, int]): The (x, y) position to add the block.
+        
+        Returns:
+            bool: True if the block was added successfully, False otherwise.
+        """
+        if block_type not in ['A', 'B', 'C']:
+            print(f"Invalid block type: {block_type}")
+            return False
+        
+        x, y = position
+        if x < 0 or y < 0 or y >= len(self.grid) or x >= len(self.grid[0]):
+            print(f"Position out of bounds: ({x}, {y})")
+            return False
+        
+        if self.grid[y][x] != 'o':
+            print(f"Cannot place block at position: ({x}, {y})")
+            return False
+        
+        # Create block object and add to block list
+        block = Block(block_type, position)
+        self.block_objects.append(block)
+
+        # Update grid
+        self.grid[y][x] = block_type
+        #print(f"Block {block_type} added at position ({x}, {y})")
+        return True
+
     def interact_with_block(self, lazor: Lazor, x: int, y: int) -> None:
         """
         Handle the interaction of a lazor with a block.

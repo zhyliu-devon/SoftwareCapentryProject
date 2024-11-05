@@ -181,6 +181,11 @@ class LazorGame:
             ax.plot(x / 2, rows - y / 2, 'go', markersize=10, label='Lazor Start')
             ax.arrow(x / 2, rows - y / 2, vx / 4, -vy / 4, head_width=0.1, head_length=0.1, fc='g', ec='g')
         
+        # Plot laser paths based on path
+        for segment in self.path:
+            (x1, y1), (x2, y2) = segment
+            ax.plot([x1 / 2, x2 / 2], [rows - y1 / 2, rows - y2 / 2], 'r-', linewidth=2)
+
         ax.set_xticks(range(cols + 1))
         ax.set_yticks(range(rows + 1))
         ax.grid(True)

@@ -50,6 +50,8 @@ class LazorGame:
         self.block_objects = []  # List of block objects
         self.lazor_objects = []  # List of lazor objects when reading the document
         self.points = []  # List of points to intersect
+        self.created_lazors = []
+        self.lazors = []
         self.read_board()
     
     def read_board(self) -> None:
@@ -177,12 +179,49 @@ class LazorGame:
         """
         Propagate all lazors until all of them have ended.
         """
-
-        # 1 Check if the lazor hits a block before moving to the new position
-
-        # 2 Check if the lazor hits a boundary
-
-        # 3 Update path
-
-        # 4 Update lazor position
-
+        self.path = []
+        while any(not lazor.end for lazor in self.lazors):
+            #print(self.lazors)
+            for lazor in self.lazors:
+                if lazor.end:
+                    #print("continue 1")
+                    continue
+                
+                # 1 Check if the lazor hits a block before moving to the new position
+                if lazor.position[0] % 2 == 0:  # Check x direction
+                    check_x = (lazor.position[0] + lazor.direction[0]) // 2
+                    check_y = lazor.position[1] // 2
+                    if self.grid[check_y][check_x] not in ['o', 'x']:
+                        self.interact_with_block(lazor, check_x, check_y)
+                        
+                elif lazor.position[1] % 2 == 0:  # Check y direction
+                    check_x = lazor.position[0] // 2
+                    check_y = (lazor.position[1] + lazor.direction[1]) // 2
+                    if self.grid[check_y][check_x] not in ['o', 'x']:
+                        self.interact_with_block(lazor, check_x, check_y)
+                        
+                new_x = lazor.position[0] + lazor.direction[0]
+                new_y = lazor.position[1] + lazor.direction[1]
+                # 2 Check if the lazor hits a boundary
+                if new_x <= 0 or new_x >= len(self.grid[0]) * 2 or new_y <= 0 or new_y >= len(self.grid) * 2:
+                    lazor.end = True
+                    path_segment = (lazor.position, (new_x, new_y))
+                    lazor.position = (new_x, new_y)
+                    if path_segment not in self.path:
+                        self.path.append(path_segment)
+                    #print("continue 2")
+                    continue
+                
+                # 3 Update path
+                path_segment = (lazor.position, (new_x, new_y))
+                if path_segment not in self.path:
+                    self.path.append(path_segment)
+                else:
+                    lazor.end = True
+                    #print("continue 3")
+                    continue
+                
+                # 4 Update lazor position
+                if self.grid[check_y][check_x] not in ['B']:
+                    lazor.position = (new_x, new_y)
+                #print(lazor.position)

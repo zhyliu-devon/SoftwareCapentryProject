@@ -50,10 +50,26 @@ class LazorGame:
         self.block_objects = []  # List of block objects
         self.lazor_objects = []  # List of lazor objects when reading the document
         self.points = []  # List of points to intersect
+        self.path = [] # list of path travelled by lazor
         self.created_lazors = []
         self.lazors = []
         self.read_board()
+        self.initialize_lazors()
+        self.initialize_blocks()
     
+    def reset(self):
+        self.grid = []  # The game grid
+        self.blocks = {}  # Dictionary to store block requirements
+        self.block_objects = []  # List of block objects
+        self.lazor_objects = []  # List of lazor objects
+        self.points = []  # List of points to intersect
+        self.path = [] # list of path travelled by lazor
+        self.created_lazors = []
+        self.lazors = []
+        self.read_board()
+        self.initialize_lazors()
+        self.initialize_blocks()
+        
     def read_board(self) -> None:
         """Read and parse the .bff file"""
         try:

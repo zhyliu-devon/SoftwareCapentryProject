@@ -37,7 +37,7 @@ def solve_all_boards_optimized(directory_path: str) -> Dict[str, float]:
                 
                 print(f"\nSolution found in {solution_time:.2f} seconds!")
                 #print_solution(board)
-                board.propogate()
+                board.propagate()
                 board.visualize(directory_path, file_name)
                 
      

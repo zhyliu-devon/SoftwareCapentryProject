@@ -44,7 +44,7 @@ def solve_board(game: LazorGame) -> bool:
 
     # If no blocks needed, check if current configuration works
     if not blocks_needed:
-        game.propogate()
+        game.propagate()
         return game.validate()
     
     # 3 Get all possible combinations of positions for the blocks
@@ -72,7 +72,7 @@ def solve_board(game: LazorGame) -> bool:
                     valid = False
                     break
     # 8 check if this is a solution
-            test_game.propogate()
+            test_game.propagate()
             if test_game.validate():
     # 9 If solution found, apply it to the original game
                 for (x, y), block_type in zip(positions, block_arrangement):
@@ -105,7 +105,7 @@ def solve_board_optimized(game: LazorGame) -> bool:
     
     if not blocks_needed:
         # If no blocks needed, check if current configuration works
-        game.propogate()
+        game.propagate()
         return game.validate()
     
     # Get all possible combinations of positions for the blocks
@@ -130,7 +130,7 @@ def solve_board_optimized(game: LazorGame) -> bool:
         # First propagate with current blocks
         for placed_pos, placed_type in current_blocks:
             test_game.add_block(placed_type, placed_pos)
-        test_game.propogate()
+        test_game.propagate()
         original_path = test_game.path.copy()
         
         # Reset and add new block
@@ -138,7 +138,7 @@ def solve_board_optimized(game: LazorGame) -> bool:
         for placed_pos, placed_type in current_blocks:
             test_game.add_block(placed_type, placed_pos)
         test_game.add_block(block_type, pos)
-        test_game.propogate()
+        test_game.propagate()
         new_path = test_game.path
         
         # Check if path changed
@@ -164,7 +164,7 @@ def solve_board_optimized(game: LazorGame) -> bool:
             test_game = LazorGame(game.filename)
             for pos, block_type in placed_blocks:
                 test_game.add_block(block_type, pos)
-            test_game.propogate()
+            test_game.propagate()
             if test_game.validate():
                 # Apply solution to original game
                 for pos, block_type in placed_blocks:

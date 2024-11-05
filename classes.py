@@ -69,7 +69,7 @@ class LazorGame:
         self.read_board()
         self.initialize_lazors()
         self.initialize_blocks()
-        
+
     def read_board(self) -> None:
         """Read and parse the .bff file"""
         try:
@@ -125,6 +125,13 @@ class LazorGame:
                     block = Block(block_type=cell, position=(x, y))
                     self.block_objects.append(block)
 
+    def initialize_lazors(self) -> None:
+        """
+        Initialize the list of all lazors in the game.
+        """
+        for lazor in self.lazor_objects:
+            self.lazors.append(Lazor(lazor.position, lazor.direction))
+            
     def visualize(self, address = None, file_name = None) -> None:
         """
         Visualize the Lazor board using matplotlib

@@ -1,7 +1,8 @@
 # For a single file
 from functions import *
 from classes import *
-
+import time
+from typing import Dict
 def solve_all_boards_optimized(directory_path: str) -> Dict[str, float]:
     """
     Solve all .bff files in the specified directory.

@@ -12,18 +12,20 @@ We're making a program to solve levels in the "Lazors" game. It's a mobile game,
 
 1. **Clone the Repo**: Clone the repo to your computer.
 
-
 ## Files and Directories
 
 - `README.md`: Info about the project.
 - `functions.py': The scripet contains functions
 - `classes.py' :The code contains classes
+- 'test.py' : The code allows you to test it
 
 ## How to Use
 
-1. **Input Board File (.bff)**: Create a `.bff` file that describes the Lazor board.
-
-3. **Output**: The solution will be saved as a PNG.
+1. **Testing**: To test the algorithm with the given examples, use the command:
+   ```bash
+   python test.py
+   ```
+2. **Output**: The solution will be saved as a PNG.
 
 ## Rules and Constraints
 

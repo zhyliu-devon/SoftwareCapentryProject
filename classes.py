@@ -172,3 +172,17 @@ class LazorGame:
             plt.close()
         else:
             plt.show()
+
+    def propagate(self) -> None:
+        """
+        Propagate all lazors until all of them have ended.
+        """
+
+        # 1 Check if the lazor hits a block before moving to the new position
+
+        # 2 Check if the lazor hits a boundary
+
+        # 3 Update path
+
+        # 4 Update lazor position
+

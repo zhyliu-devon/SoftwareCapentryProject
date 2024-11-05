@@ -2,7 +2,7 @@
 
 **Course**: EN.540.635 - Software Carpentry  
 **Instructors**: N. Thota, F. Shaikh  
-**Due Date**: November 5, 4:30 PM  
+**Due Date**: November 6, 4:30 PM  
 
 ## Project Overview
 

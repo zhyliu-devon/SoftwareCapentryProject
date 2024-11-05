@@ -3,67 +3,54 @@ from functions import *
 from classes import *
 import time
 from typing import Dict
-def solve_all_boards_optimized(directory_path: str) -> Dict[str, float]:
-    """
-    Solve all .bff files in the specified directory.
-    
-    Args:
-        directory_path (str): Path to directory containing .bff files
-        
-    Returns:
-        Dict[str, float]: Dictionary mapping file names to solution times
-    """
-    # Get all .bff files in directory
-    bff_files = [f for f in os.listdir(directory_path) if f.endswith('.bff')]
+
+def solve_boards(directory_path):
+    # Get all .bff files in the directory
+    bff_files = [file for file in os.listdir(directory_path) if file.endswith('.bff')]
     solution_times = {}
     
-    print(f"\nFound {len(bff_files)} .bff files to solve.\n")
-    print("=" * 50)
+    print("Number of files in the directory:", len(bff_files))
+    print("========")
     
-    # Process each file
     for file_name in bff_files:
-        full_path = os.path.join(directory_path, file_name)
-        print(f"\nAttempting to solve: {file_name}")
+        file_path = os.path.join(directory_path, file_name)
+        print("Attempting to solve", file_name)
         
         try:
-            # Time the solution
             start_time = time.time()
             
-            # Create and solve the board
-            board = LazorGame(full_path)
+            # Create and attempt to solve the board
+            board = LazorGame(file_path)
             if solve_board_optimized(board):
-                solution_time = time.time() - start_time
-                solution_times[file_name] = solution_time
+                elapsed_time = time.time() - start_time
+                solution_times[file_name] = elapsed_time
+                print("Solved in", elapsed_time, "seconds")
                 
-                print(f"\nSolution found in {solution_time:.2f} seconds!")
-                #print_solution(board)
                 board.propagate()
                 board.visualize(directory_path, file_name)
-                
-     
             else:
-                print(f"\nNo solution found for {file_name}")
+                print("No solution found for", file_name)
                 solution_times[file_name] = -1
                 
-        except Exception as e:
-            print(f"Error processing {file_name}: {str(e)}")
+        except Exception as error:
+            print("Error while processing", file_name, ":", str(error))
             solution_times[file_name] = -2
             
-        print("\n" + "=" * 50)
+        print("========")
     
-    # Print summary
-    print("\nSummary of results:")
-    print("=" * 50)
+    # Print summary of results
+    print("Summary of results:")
     for file_name, solve_time in solution_times.items():
         if solve_time > 0:
-            print(f"{file_name}: Solved in {solve_time:.2f} seconds")
+            print(file_name, "solved in", solve_time, "seconds")
         elif solve_time == -1:
-            print(f"{file_name}: No solution found")
+            print(file_name, "no solution found")
         else:
-            print(f"{file_name}: Error during processing")
+            print(file_name, "error during processing")
             
     return solution_times
 
+
 directory = r".\bff_files"
-solve_all_boards_optimized(directory)
+solve_boards(directory)
 

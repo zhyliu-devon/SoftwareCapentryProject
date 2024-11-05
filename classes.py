@@ -131,7 +131,7 @@ class LazorGame:
         """
         for lazor in self.lazor_objects:
             self.lazors.append(Lazor(lazor.position, lazor.direction))
-            
+
     def visualize(self, address = None, file_name = None) -> None:
         """
         Visualize the Lazor board using matplotlib
@@ -248,3 +248,43 @@ class LazorGame:
                 if self.grid[check_y][check_x] not in ['B']:
                     lazor.position = (new_x, new_y)
                 #print(lazor.position)
+    
+    def interact_with_block(self, lazor: Lazor, x: int, y: int) -> None:
+        """
+        Handle the interaction of a lazor with a block.
+        
+        Args:
+            lazor (Lazor): The lazor interacting with the block.
+            x (int): The x-coordinate of the block.
+            y (int): The y-coordinate of the block.
+        """
+        #print("Interact")
+        for block in self.block_objects:
+            #print(block)
+            if block.position == (x, y):
+                #print(block)
+                if block.block_type == 'A':
+                    #print("Reflect!")
+                    # Reflect lazor
+                    if lazor.position[0] % 2 == 0:  # Hitting in x direction
+                        lazor.direction = (-lazor.direction[0], lazor.direction[1])
+                    elif lazor.position[1] % 2 == 0:  # Hitting in y direction
+                        lazor.direction = (lazor.direction[0], -lazor.direction[1])
+                elif block.block_type == 'B':
+                    #print("Opague!")
+                    # Opaque block, lazor ends
+                    lazor.direction = (0,0)
+                    lazor.end = True
+                    
+                elif block.block_type == 'C':
+                    #print("Refract!")
+                    # Refract block, lazor continues and a new lazor is created
+                    if lazor.position[0] % 2 == 0:  # Hitting in x direction
+                        new_direction = (-lazor.direction[0], lazor.direction[1])
+                    elif lazor.position[1] % 2 == 0:  # Hitting in y direction
+                        new_direction = (lazor.direction[0], -lazor.direction[1])
+                    new_lazor = Lazor(position=lazor.position, direction=new_direction)
+                    if ([ lazor.position, new_direction] not in self.created_lazors):
+                        self.created_lazors.append([lazor.position, new_direction])
+                        self.lazors.append(new_lazor)
+                    #print(self.lazors)

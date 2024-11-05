@@ -39,4 +39,20 @@ We're making a program to solve levels in the "Lazors" game. It's a mobile game,
    - Refract Blocks
 3. **Performance**: The solution should be found within 2 minutes.
 
+** Summary of results:
+dark_1.bff solved in 0.05701279640197754 seconds
+
+mad_1.bff solved in 0.2540569305419922 seconds
+
+mad_4.bff solved in 2.0134575366973877 seconds
+
+mad_7.bff solved in 72.89884114265442 seconds
+
+numbered_6.bff solved in 7.325664520263672 seconds
+
+showstopper_4.bff solved in 0.0290067195892334 seconds
+
+tiny_5.bff solved in 0.05301165580749512 seconds
+
+yarn_5.bff solved in 9.27310585975647 seconds
 

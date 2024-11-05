@@ -152,7 +152,8 @@ class LazorGame:
         ax.legend(handles=legend_handles, loc='center left', bbox_to_anchor=(1, 0.5))
         
         plt.title(f'Lazor Board: {os.path.basename(self.filename)}')
-
+        plt.tight_layout()
+        
         if address is not None:
             print("Saving the solution for :" , file_name)
             plt.savefig(os.path.join(address, f"{file_name}_solution.png"))

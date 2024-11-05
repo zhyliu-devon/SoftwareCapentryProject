@@ -97,3 +97,12 @@ class LazorGame:
         except Exception as e:
             raise ValueError(f"Error parsing board file: {str(e)}")
     
+    def initialize_blocks(self) -> None:
+        """
+        Creat block object and put it into the list
+        """
+        for y, row in enumerate(self.grid):
+            for x, cell in enumerate(row):
+                if cell in ['A', 'B', 'C']:
+                    block = Block(block_type=cell, position=(x, y))
+                    self.block_objects.append(block)

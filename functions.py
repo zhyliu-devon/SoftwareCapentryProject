@@ -179,9 +179,10 @@ def solve_board_optimized(game: LazorGame) -> bool:
                 # Check if this block placement actually affects the path
                 test_game = LazorGame(game.filename)
                 if not check_block_effect(test_game, pos, block_type, placed_blocks):
-                    # Skip this placement if it doesn't change the path
-                    continue
-                
+                    if not test_game.validate():
+                        # Skip this placement if it doesn't change the path and it is not the solution
+                        continue
+
                 # Remove the block type we're using
                 new_blocks = list(blocks_left)
                 new_blocks.remove(block_type)

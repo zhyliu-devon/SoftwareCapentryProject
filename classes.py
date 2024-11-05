@@ -326,3 +326,16 @@ class LazorGame:
                         self.created_lazors.append([lazor.position, new_direction])
                         self.lazors.append(new_lazor)
                     #print(self.lazors)
+                    
+    def validate(self) -> bool:
+        """
+        Validate if all target points are covered by any of the lazor paths.
+        
+        Returns:
+            True if all target points are covered
+        """
+        for point in self.points:
+            if not any(point in segment for segment in self.path):
+                return False
+        return True
+
